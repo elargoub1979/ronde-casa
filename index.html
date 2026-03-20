@@ -3,161 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Contrôleur de Ronde - RATP Dev Casablanca</title>
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/elargoub1979/ronde-casa/main/logo_ratp_dev_casa.png">
-    
+    <title>RATP Dev Casablanca - Ronde</title>
     <style>
-        /* Définition des couleurs RATP/Casa pour une interface cohérente */
         :root {
-            --casa-orange: #f37021;  /* Orange du logo Casa */
-            --ratp-teal: #009688;    /* Vert d'eau RATP Dev */
-            --ratp-blue: #0055A4;    /* Bleu RATP */
-            --bg-gray: #f4f7f6;      /* Fond de page gris très clair */
-            --white: #ffffff;        /* Fond de la carte blanc pur */
-            --text-color: #333333;
-            --border-color: #cccccc;  /* Couleur des bordures de formulaire */
+            --ratp-blue: #0055A4;
+            --ratp-green: #009688;
+            --bg-gray: #f4f7f6;
         }
 
-        /* Style de base pour la page */
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             background-color: var(--bg-gray);
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center; /* Centre verticalement */
-            min-height: 100vh; /* Prend toute la hauteur de l'écran */
-            padding: 10px;
-        }
-
-        /* Style de la carte principale qui contient l'application */
-        .card {
-            background: var(--white);
-            width: 100%;
-            max-width: 480px; /* Largeur maximale pour les grands écrans */
-            border-radius: 15px; /* Coins arrondis professionnels */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* Ombre légère pour le relief */
-            overflow: hidden; /* Empêche le contenu de déborder */
-            border-top: 5px solid var(--ratp-blue); /* Fine bande bleue RATP en haut */
-        }
-
-        /* Style de l'en-tête contenant les logos */
-        .header {
-            text-align: center;
-            padding: 25px 20px 15px 20px;
-            display: flex;
-            flex-direction: column; /* Aligne les éléments verticalement */
             align-items: center;
-            border-bottom: 1px solid #eee; /* Ligne de séparation fine */
+            min-height: 100vh;
         }
 
-        /* Style pour les logos */
-        .logo-casa {
-            max-width: 180px; /* Taille optimale du bloc Casa Tram/Bus */
-            height: auto;
-            margin-bottom: 20px; /* Espace avant le logo RATP Dev */
+        .card {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-top: 6px solid var(--ratp-blue);
+            overflow: hidden;
         }
 
-        .logo-ratp-dev {
-            max-width: 190px; /* Taille optimale du logo RATP Dev Casablanca */
-            height: auto;
-            margin-bottom: 5px;
-        }
-
-        /* Style du titre de l'application */
-        h2.main-title {
-            color: var(--ratp-blue);
-            font-size: 1.2rem;
+        .header {
+            padding: 20px;
             text-align: center;
-            text-transform: uppercase;
-            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Vos deux logos officiels */
+        .logo-casa { width: 160px; height: auto; margin-bottom: 15px; }
+        .logo-ratp { width: 180px; height: auto; }
+
+        h2 {
+            color: var(--ratp-blue);
+            font-size: 1.1rem;
             margin: 0;
-            letter-spacing: 1px;
+            padding: 15px;
+            background: #f9f9f9;
+            text-transform: uppercase;
+            text-align: center;
             font-weight: bold;
-            background-color: #f9f9f9; /* Fond légèrement gris pour le titre */
         }
 
-        /* Style du conteneur de formulaire */
-        .container {
-            padding: 25px;
-        }
+        .container { padding: 20px; }
 
-        /* Style de chaque groupe de formulaire (label + select) */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        /* Style des étiquettes (labels) */
         label {
             display: block;
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 5px;
             color: #444;
+            font-size: 0.9rem;
         }
 
-        /* Style des listes déroulantes (select) */
         select {
             width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border-color); 
-            border-radius: 10px; /* Coins arrondis comme dans le modèle */
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
             font-size: 1rem;
-            background-color: #ffffff;
-            color: var(--text-color);
-            outline: none;
-            transition: all 0.2s;
-            appearance: none; /* Cache la flèche par défaut */
-            /* Ajoute une flèche de sélection personnalisée */
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            background-size: 1.1em;
+            appearance: none;
+            background-color: #fff;
         }
 
-        /* Effet au focus sur un select */
-        select:focus {
-            border-color: var(--ratp-blue);
-            box-shadow: 0 0 0 4px rgba(0, 85, 164, 0.1);
-        }
-
-        /* Style pour l'indicateur de statut GPS */
-        #status-gps {
-            font-size: 0.8rem;
-            text-align: center;
-            margin-top: -10px;
-            margin-bottom: 18px;
-            font-weight: 600;
-            min-height: 1rem;
-        }
-
-        /* Style du bouton principal "TAGUER" */
         .btn-taguer {
             width: 100%;
-            background-color: var(--ratp-green-btn); /* Vert RATP */
+            background-color: var(--ratp-green);
             color: white;
             border: none;
-            padding: 20px;
-            border-radius: 10px; 
-            font-size: 1.3rem;
-            font-weight: 800;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
-            box-shadow: 0 5px 10px rgba(0, 150, 136, 0.2);
-            transition: all 0.2s ease;
         }
 
-        /* Effet au clic sur le bouton */
-        .btn-taguer:active {
-            transform: scale(0.97);
-            filter: brightness(0.9);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* Style du bouton quand il est désactivé (pendant la recherche GPS) */
-        .btn-taguer:disabled {
-            background-color: #bdc3c7;
-            box-shadow: none;
+        #status {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            color: #666;
         }
     </style>
 </head>
@@ -165,147 +98,61 @@
 
 <div class="card">
     <div class="header">
-        <img src="https://raw.githubusercontent.com/elargoub1979/ronde-casa/main/logo_casa_group.png" alt="Casa Tramway / Casa Busway" class="logo-casa">
-        
-        <img src="https://raw.githubusercontent.com/elargoub1979/ronde-casa/main/logo_ratp_dev_casa.png" alt="RATP Dev Casablanca" class="logo-ratp-dev">
+        <img src="logo_casa_group.png" alt="Logo Casa" class="logo-casa">
+        <br>
+        <img src="logo_ratp_dev_casa.png" alt="Logo RATP Dev" class="logo-ratp">
     </div>
 
-    <h2 class="main-title">CONTRÔLEUR DE RONDE</h2>
+    <h2>Contrôleur de Ronde</h2>
 
     <div class="container">
-        <div class="form-group">
-            <label>Réseau / Ligne</label>
-            <select id="ligne" onchange="updateStations()">
-                <option value="">-- Choisir la ligne --</option>
-                <option value="T1">T1</option>
-                <option value="T2">T2</option>
-                <option value="T3">T3</option>
-                <option value="T4">T4</option>
-                <option value="BW1">BW1</option>
-                <option value="BW2">BW2</option>
-            </select>
-        </div>
+        <label>Réseau / Ligne</label>
+        <select id="ligne">
+            <option value="">-- Choisir la ligne --</option>
+            <option>T1</option>
+            <option>T2</option>
+            <option>T3</option>
+            <option>T4</option>
+            <option>BW1</option>
+            <option>BW2</option>
+        </select>
 
-        <div class="form-group">
-            <label>Nom de la Station</label>
-            <select id="station">
-                <option value="">-- Sélectionner Station --</option>
-            </select>
-        </div>
+        <label>Nom de la Station</label>
+        <select id="station">
+            <option value="">-- Sélectionner Station --</option>
+        </select>
 
-        <div class="form-group">
-            <label>Nom du Chef de Zone</label>
-            <select id="chef">
-                <option value="">-- Sélectionner Chef --</option>
-            </select>
-        </div>
+        <label>Chef de Zone</label>
+        <select id="chef">
+            <option value="">-- Sélectionner Chef --</option>
+        </select>
 
-        <div id="status-gps"></div>
-
-        <button id="btn-main" class="btn-taguer" onclick="lancerAction()">Taguer</button>
+        <button class="btn-taguer" onclick="valider()">Taguer</button>
+        <div id="status"></div>
     </div>
 </div>
 
 <script>
-    // --- DONNÉES DES STATIONS (Inchangées) ---
-    // Vous pouvez modifier cette liste pour chaque ligne
-    const data = {
-        "T1": ["Sidi Moumen Terminus", "Casa Voyageurs", "Place Mohamed V", "Facultés", "Lissasfa Terminus"],
-        "T2": ["Sidi Bernoussi Terminus", "2 Mars", "Riviera", "Ain Diab Plage Terminus"],
-        "T3": ["Casa Port Terminus", "Derb Sultan", "Hay Alwahda Terminus"],
-        "T4": ["Mohammed Erradi Terminus", "Mers Sultan", "Parc De La Ligue Arabe Terminus"],
-        "BW1": ["Salmia 2 Terminus", "Oulad Haddou", "Omar Al Khayam Terminus"],
-        "BW2": ["Oulmes Terminus", "Errahma", "Ouled Azzouz Terminus"]
-    };
+    function valider() {
+        const btn = document.querySelector('.btn-taguer');
+        const status = document.getElementById('status');
+        
+        btn.innerHTML = "Localisation...";
+        status.innerHTML = "🛰️ Recherche du signal GPS...";
 
-    // --- LISTE DES CHEFS DE ZONE ---
-    // Vous pouvez modifier cette liste en ajoutant ou supprimant des noms
-    const chefs = ["Redouane Zaoui", "Fouad MAHMAH", "Zakia AMMARI", "Monsif MARZOUK", "Hassan MOUTTAQUINE", "El mostafa ERRAHMOUNI", "Youssef ABOUHILAL", "Anass CHOUKRI", "Rachid BAZZAZ", "Aicha ESSAHMI", "Youssef EZZAMANIDI", "Ayoub AQASBY", "Mohamed FRIMAN", "Ouissal NASSOUHE", "Mohamed REGRAGUI", "Taha NAJHI", "Mohamed CHAGUE", "Mohamed SADOK", "Samir HOUD", "Youness MAATOUS", "Azddine GOUTE", "Nourddine KARDANE", "Abdelilah HARIRI", "Bader HAMDA", "Abdelkader OUELDBA", "Samir AKLIA", "Zakaria LAHMITI", "Elbouazzaoui ERRAKI", "Hicham ZAHIDI", "Mounsif FOUAD", "Rachid EL HAFYANI", "El Mehdi EL MISSIOUI", "Fahd CHAHTI", "Amine MOUSSADAK", "Mouhcin RACHDAOUI", "Wadii LARHA", "Ouahid LAYLI", "Siham KASSEMI", "Aziz DOUMI", "Abderrahman BECHTAOUI"];
-
-    // Initialisation : trie les chefs par ordre alphabétique et remplit le select
-    window.onload = function() {
-        const chefSelect = document.getElementById('chef');
-        chefs.sort().forEach(c => {
-            let o = document.createElement('option');
-            o.value = c; o.text = c;
-            chefSelect.appendChild(o);
-        });
-    };
-
-    // Met à jour la liste des stations quand une ligne est choisie
-    function updateStations() {
-        const ligne = document.getElementById('ligne').value;
-        const sSelect = document.getElementById('station');
-        // Réinitialise la liste des stations
-        sSelect.innerHTML = '<option value="">-- Sélectionner Station --</option>';
-        // Remplit la liste avec les stations de la ligne choisie
-        if (ligne && data[ligne]) {
-            data[ligne].forEach(s => {
-                let o = document.createElement('option');
-                o.value = s; o.text = s;
-                sSelect.appendChild(o);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                alert("✅ Ronde validée !\nCoordonnées : " + position.coords.latitude + ", " + position.coords.longitude);
+                btn.innerHTML = "Taguer";
+                status.innerHTML = "✅ Position enregistrée";
+            }, () => {
+                alert("❌ Erreur : Activez le GPS sur votre téléphone.");
+                btn.innerHTML = "Taguer";
+                status.innerHTML = "";
             });
         }
     }
-
-    // Fonction principale déclenchée au clic sur "TAGUER"
-    function lancerAction() {
-        // Récupération des valeurs du formulaire
-        const l = document.getElementById('ligne').value;
-        const s = document.getElementById('station').value;
-        const c = document.getElementById('chef').value;
-
-        // Vérification que tous les champs sont remplis
-        if (!l || !s || !c) {
-            alert("⚠️ Veuillez remplir tous les champs !");
-            return;
-        }
-
-        const btn = document.getElementById('btn-main');
-        const status = document.getElementById('status-gps');
-        
-        // Désactive le bouton et affiche le statut de recherche GPS
-        btn.disabled = true;
-        btn.innerHTML = "LOCALISATION...";
-        status.innerHTML = "🛰️ Recherche GPS en cours...";
-        status.style.color = "#f39c12"; // Orange d'avertissement
-
-        // Vérifie si la géolocalisation est disponible
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                // Cas de succès
-                (pos) => {
-                    const lat = pos.coords.latitude.toFixed(6); // 6 décimales pour la précision
-                    const lon = pos.coords.longitude.toFixed(6);
-                    const h = new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
-                    
-                    // Met à jour le statut
-                    status.innerHTML = "✅ POSITION CAPTURÉE";
-                    status.style.color = "var(--ratp-green-btn)";
-                    
-                    // Affiche le message de confirmation avec les coordonnées GPS
-                    alert(`✅ RONDE VALIDÉE\n\n👤 Chef: ${c}\n📍 Station: ${s}\n⏰ Heure: ${h}\n🌍 GPS: ${lat}, ${lon}`);
-                    
-                    // Réactive le bouton
-                    btn.disabled = false;
-                    btn.innerHTML = "TAGUER";
-                },
-                // Cas d'erreur (GPS désactivé, refus d'autorisation, etc.)
-                (err) => {
-                    alert("❌ Erreur GPS : Vérifiez que la localisation est activée.");
-                    btn.disabled = false;
-                    btn.innerHTML = "TAGUER";
-                    status.innerHTML = "❌ GPS ÉCHOUÉ";
-                    status.style.color = "#e74c3c"; // Rouge d'erreur
-                },
-                // Paramètres de géolocalisation pour plus de précision
-                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-            );
-        } else {
-            alert("❌ Géolocalisation non disponible sur ce navigateur.");
-            btn.disabled = false;
-        }
-    }
 </script>
+
 </body>
 </html>

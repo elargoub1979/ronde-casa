@@ -167,34 +167,39 @@
     }
 
     function valider() {
-        const status = document.getElementById('status');
-        const l = document.getElementById('ligne').value;
-        const s = document.getElementById('station').value;
-        const c = document.getElementById('chef').value;
+    const status = document.getElementById('status');
+    const l = document.getElementById('ligne').value;
+    const s = document.getElementById('station').value;
+    const c = document.getElementById('chef').value;
+    const urlScript = "COLLEZ_VOTRE_URL_GOOGLE_SCRIPT_ICI"; // <--- METTRE VOTRE LIEN ICI
+
+    if(!l || !s || !c) { alert("Remplir tous les champs !"); return; }
+
+    status.innerHTML = "🛰️ Envoi des données...";
+    
+    navigator.geolocation.getCurrentPosition((pos) => {
+        const gpsStr = pos.coords.latitude + ", " + pos.coords.longitude;
         
-        // --- REMPLACEZ LE LIEN CI-DESSOUS PAR VOTRE LIEN DE DEPLOIEMENT GOOGLE SCRIPT ---
-        const urlScript = "VOTRE_LIEN_ICI"; 
+        // Envoi vers Google Sheets
+        fetch(urlScript, {
+            method: 'POST',
+            mode: 'no-cors', // Important pour Google Script
+            body: JSON.stringify({
+                ligne: l,
+                station: s,
+                chef: c,
+                gps: gpsStr
+            })
+        }).then(() => {
+            status.innerHTML = "✅ ENREGISTRÉ DANS GOOGLE SHEETS";
+            status.style.color = "green";
+            alert("Ronde enregistrée avec succès !");
+        }).catch(err => {
+            alert("Erreur d'envoi !");
+        });
 
-        if(!l || !s || !c) { alert("⚠️ Remplir tous les champs !"); return; }
-
-        status.innerHTML = "🛰️ Recherche GPS & Envoi...";
-        status.style.color = "orange";
-
-        navigator.geolocation.getCurrentPosition((pos) => {
-            const gpsStr = pos.coords.latitude + ", " + pos.coords.longitude;
-            
-            fetch(urlScript, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({ ligne: l, station: s, chef: c, gps: gpsStr })
-            }).then(() => {
-                status.innerHTML = "✅ ENREGISTRÉ AVEC SUCCÈS";
-                status.style.color = "green";
-                alert("✅ Ronde bien enregistrée dans Google Sheets !");
-            }).catch(() => alert("❌ Erreur de connexion"));
-
-        }, () => alert("❌ GPS désactivé !"));
-    }
+    }, () => alert("Erreur GPS !"));
+}
 </script>
 
 </body>

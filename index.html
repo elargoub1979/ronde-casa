@@ -118,15 +118,6 @@
     <h2>Ronde de Surveillance</h2>
 
     <div class="container">
-        <label>Dépôt de prise de service</label>
-        <select id="depot">
-            <option value="">-- Sélectionner le dépôt --</option>
-            <option value="Dépôt Hantat">Dépôt Hantat</option>
-            <option value="Dépôt Sidi Moumen">Dépôt Sidi Moumen</option>
-            <option value="Dépôt CDR">Dépôt CDR</option>
-            <option value="Dépôt Sidi Bernoussi">Dépôt Sidi Bernoussi</option>
-        </select>
-
         <label>Service</label>
         <select id="service">
             <option value="">-- Choisir le service --</option>
@@ -135,15 +126,23 @@
             <option value="Soir">Soir</option>
         </select>
 
-        <label>Réseau / Ligne</label>
+        <label>Dépôt / Réseau / Ligne</label>
         <select id="ligne" onchange="updateStations()">
-            <option value="">-- Choisir la ligne --</option>
-            <option value="T1">T1</option>
-            <option value="T2">T2</option>
-            <option value="T3">T3</option>
-            <option value="T4">T4</option>
-            <option value="BW1">BW1</option>
-            <option value="BW2">BW2</option>
+            <option value="">-- Choisir --</option>
+            <optgroup label="Dépôts">
+                <option value="Dépôt Hantat">Dépôt Hantat</option>
+                <option value="Dépôt Sidi Moumen">Dépôt Sidi Moumen</option>
+                <option value="Dépôt CDR">Dépôt CDR</option>
+                <option value="Dépôt Sidi Bernoussi">Dépôt Sidi Bernoussi</option>
+            </optgroup>
+            <optgroup label="Tramway / Busway">
+                <option value="T1">T1</option>
+                <option value="T2">T2</option>
+                <option value="T3">T3</option>
+                <option value="T4">T4</option>
+                <option value="BW1">BW1</option>
+                <option value="BW2">BW2</option>
+            </optgroup>
         </select>
 
         <label>Nom de la Station</label>
@@ -167,6 +166,10 @@
 
 <script>
     const data = {
+        "Dépôt Hantat": ["Loge de Sécurité", "Atelier", "Bureaux Administratifs", "Parking"],
+        "Dépôt Sidi Moumen": ["Loge de Sécurité", "Atelier", "PCC", "Parking"],
+        "Dépôt CDR": ["Loge de Sécurité", "Atelier", "Bureaux"],
+        "Dépôt Sidi Bernoussi": ["Loge de Sécurité", "Atelier", "Parking"],
         "T1": ["Sidi Moumen Terminus", "Ennassim", "Mohamed Zefzaf", "Centre Maintenance", "Hôpital Sidi Moumen", "Attacharouk", "Okba Ibn Nafii", "Forces Auxiliaires", "Hay Raja", "Ibn Tachefine", "Hay Mohammadi", "Achouhada", "Ali Yaata", "Grande Ceinture", "Les Anciens Abattoirs", "Ba Hmad", "Casa Voyageurs", "Place Al Yassir", "La Résistance", "Mohamed Diouri", "Marché Central", "Place Des Nations Unies", "Place Mohamed 5", "Avenue Hassan 2", "Wafasalaf", "Faculté De Médecine", "Abdelmoumen", "Bachkou", "Mekka", "Gare Oasis", "Panoramique", "Technopark", "Zenith", "Gare Casa Sud", "Facultés", "Laymoune", "Lissasfa Terminus"],
         "T2": ["Sidi Bernoussi Terminus", "Abi Dar El Ghafari", "Gare de Ain Sbaa", "Préfecture Ain Sbaa", "AL Amane", "Wifaq", "Dar Laman", "Carrières centrales", "Kissariat Hay Mohammadi", "Mdakra", "Hay Adil", "Derb Milan", "Hay El Farah", "Derb Sultan", "Place Sraghna", "El Fida", "2 Mars", "Hermitage", "Anoual", "Derb Ghalef", "Riviera", "Ghandi", "Beauséjour", "Anfa Club", "Place financière", "Abdellah Ben Cherif", "Cité de L'air", "Sidi Abderrahmane", "Hay Hassani", "Littoral", "Ain Diab Plage Terminus"],
         "T3": ["Casa Port Terminus", "Mohammed Smiha", "Place De La victoir", "Mohamed Zerktouni", "Habous", "Garage allal", "Derb Tolba", "Derb Chorfa", "Abou Couaib Doukali", "Afriquia", "Dar Attouzani", "BD Mohammed VI", "6 NOUVEMBRE", "Abdessalam Ennaciri", "Jardin Alesco", "Hay Lalla Mariem", "Idriss El Allam", "Abdelkader Essahraoui", "10 Mars", "Hay Alwahda Terminus"],
@@ -189,8 +192,8 @@
     function updateStations() {
         const ligne = document.getElementById('ligne').value;
         const sSelect = document.getElementById('station');
-        sSelect.innerHTML = '<option value="">-- Sélectionner Station --</option>';
-        if (ligne) {
+        sSelect.innerHTML = '<option value="">-- Sélectionner Lieu --</option>';
+        if (ligne && data[ligne]) {
             data[ligne].forEach(s => {
                 let o = document.createElement('option');
                 o.value = s; o.text = s;
@@ -201,15 +204,15 @@
 
     function valider(typeAction) {
         const status = document.getElementById('status');
-        const d = document.getElementById('depot').value;
         const v = document.getElementById('service').value;
         const l = document.getElementById('ligne').value;
         const s = document.getElementById('station').value;
         const c = document.getElementById('chef').value;
         
+        // --- LIEN GOOGLE SCRIPT ---
         const urlScript = "https://script.google.com/macros/s/AKfycbwteA6ZOpZPUA_-T7QkYqIRUVH3_t4EDCmAlRpemSUEfrs0EtYJtrrYy7JUQA-ARP-NpQ/exec";
 
-        if(!d || !v || !l || !s || !c) { alert("⚠️ Remplir tous les champs !"); return; }
+        if(!v || !l || !s || !c) { alert("⚠️ Remplir tous les champs !"); return; }
 
         status.innerHTML = "🛰️ Localisation & Envoi...";
         status.style.color = "orange";
@@ -222,7 +225,6 @@
                 mode: 'no-cors',
                 body: JSON.stringify({ 
                     type: typeAction,
-                    depot: d,
                     service: v, 
                     ligne: l, 
                     station: s, 

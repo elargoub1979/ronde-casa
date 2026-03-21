@@ -39,13 +39,17 @@
 
         h2 {
             color: var(--ratp-blue);
-            font-size: 0.95rem;
+            /* --- MODIFICATION DE LA TAILLE DE POLICE DU TITRE --- */
+            font-size: 0.85rem; /* Ajustez cette valeur pour faire tenir sur une ligne */
             margin: 0;
             padding: 12px;
             background: #f9f9f9;
             text-transform: uppercase;
             text-align: center;
             font-weight: bold;
+            white-space: nowrap; /* Empêche le retour à la ligne */
+            overflow: hidden; /* Cache le texte qui dépasse */
+            text-overflow: ellipsis; /* Ajoute des points de suspension si nécessaire */
         }
 
         .container { padding: 15px; }
@@ -121,7 +125,7 @@
         <img src="logo_ratp_dev_casa.png" alt="Logo RATP Dev" class="logo-ratp">
     </div>
 
-    <h2>CONTRÔLEUR DE RONDE / SERVICE</h2>
+    <h2>contrôleur de ronde / prise de service</h2>
 
     <div class="container">
         <label>Service</label>
@@ -173,7 +177,6 @@
 </div>
 
 <script>
-    // --- MÊME LOGIQUE DE DONNÉES ET D'ENVOI ---
     const data = {
         "Dépôt Hantat": ["Loge de Sécurité", "Atelier", "Bureaux Administratifs", "Parking"],
         "Dépôt Sidi Moumen": ["Loge de Sécurité", "Atelier", "PCC", "Parking"],
@@ -187,7 +190,7 @@
         "BW2": ["Oulmes Terminus", "Yaacoub Al Mansour", "C.I.L.", "Aéropostale", "Les musées", "Oued Oum Rabia", "Oued Laou", "Oued Beht", "Moulouya", "Haj Fateh", "Essafa", "Moulay Thami", "Abouab Oulfa", "La Rocade", "La Perception", "Les Jardins D’Errahma", "Errahma", "Oued Sbou", "Les Ecoles", "Ouled Ahmed", "La Ferme", "Ouled Azzouz Terminus"]
     };
 
-    const chefs = ["Redouane Zaoui", "Fouad MAHMAH", "Zakia AMMARI", "Monsif MARZOUK", "Hassan MOUTTAQUINE", "El mostafa ERRAHMOUNI", "Youssef ABOUHILAL", "Anass CHOUKRI", "Rachid BAZZAZ", "Aicha ESSAHMI", "Youssef EZZAMANIDI", "Ayoub AQASBY", "Mohamed FRIMAN", "Ouissal NASSOUHE", "Mohamed REGRAGUI", "Taha NAJHI", "Mohamed CHAGUE", "Mohamed SADOK", "Samir HOUD", "Youness MAATOUS", "Azddine GOUTE", "Nourddine KARDANE", "Abdelilah HARIRI", "Bader HAMDA", "Abdelkader OUELDBA", "Samir AKLIA", "Zakaria LAHMITI", "Elbouazzaoui ERRAKI", "Hicham ZAHIDI", "Mounsif FOUAD", "Rachid EL HAFYANI", "El Mehdi EL MISSIOUI", "Fahd CHAHTI", "Amine MOUSSADAK", "Mouhcin RACHDAOUI", "Wadii LARHA", "Ouahid LAYLI", "Siham KASSEMI", "Aziz DOUMI", "Abderrahman BECHTAOUI"];
+    const chefs = ["Redouane Zaoui", "Fouad MAHMAH", "Zakia AMMARI", "Monsif MARZOUK", "Hassan MOUTTAQUINE", "El mostafa ERRAHMOUNI", "Youssef ABOUHILAL", "Anass CHOUKRI", "Rachid BAZZAZ", "Aicha ESSAHMI", "Youssef EZZAMANIDI", "Ayoub AQASBY", "Mohamed FRIMAN", "Ouissal NASSOUHE", "Mohamed REGRAGUI", "Taha NAJHI", "Mohamed CHAGUE", "Mohamed SADOK", "Samir HOUD", "Youness MAATOUS", "Azddine GOUTE", "Nourddine KARDANE", "Abdelilah HARIRI", "Bader HAMDA", "Abdelkader OUELDBA", "Samir HARIRI", "Samir AKLIA", "Zakaria LAHMITI", "Elbouazzaoui ERRAKI", "Hicham ZAHIDI", "Mounsif FOUAD", "Rachid EL HAFYANI", "El Mehdi EL MISSIOUI", "Fahd CHAHTI", "Amine MOUSSADAK", "Mouhcin RACHDAOUI", "Wadii LARHA", "Ouahid LAYLI", "Siham KASSEMI", "Aziz DOUMI", "Abderrahman BECHTAOUI"];
 
     window.onload = function() {
         const chefSelect = document.getElementById('chef');

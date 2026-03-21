@@ -33,63 +33,63 @@
         }
 
         .header {
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             border-bottom: 1px solid #eee;
         }
 
-        .logo-casa { width: 150px; height: auto; margin-bottom: 10px; }
-        .logo-ratp { width: 160px; height: auto; }
+        .logo-casa { width: 170px; height: auto; margin-bottom: 15px; }
+        .logo-ratp { width: 180px; height: auto; }
 
         h2 {
             color: var(--ratp-blue);
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin: 0;
-            padding: 12px;
+            padding: 15px;
             background: #f9f9f9;
             text-transform: uppercase;
             text-align: center;
             font-weight: bold;
         }
 
-        .container { padding: 20px; }
+        .container { padding: 25px; }
 
         label {
             display: block;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             color: #444;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            border-radius: 10px;
+            font-size: 1rem;
             background-color: #fff;
         }
 
         .btn-group {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 15px;
+            margin-top: 15px;
         }
 
         .btn {
             width: 100%;
             color: white;
             border: none;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         .btn-prise { background-color: var(--ratp-blue); }
@@ -147,7 +147,7 @@
 
         <label>Nom de la Station</label>
         <select id="station">
-            <option value="">-- Sélectionner Station --</option>
+            <option value="">-- Sélectionner Lieu --</option>
         </select>
 
         <label>Nom du Chef de Zone</label>
@@ -165,6 +165,7 @@
 </div>
 
 <script>
+    // LISTE COMPLETE DES STATIONS (ET LIEUX DES DEPÔTS)
     const data = {
         "Dépôt Hantat": ["Loge de Sécurité", "Atelier", "Bureaux Administratifs", "Parking"],
         "Dépôt Sidi Moumen": ["Loge de Sécurité", "Atelier", "PCC", "Parking"],
